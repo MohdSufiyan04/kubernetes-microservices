@@ -2,7 +2,7 @@ replicaCount: 2
 
 image:
   repository: mohdsufiyan04/product-service
-  tag: "1"
+  tag: "2"
   pullPolicy: IfNotPresent
 
 service:
