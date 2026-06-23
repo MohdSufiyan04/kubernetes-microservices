@@ -2,7 +2,7 @@ replicaCount: 2
 
 image:
   repository: mohdsufiyan04/gateway-service
-  tag: "2"
+  tag: "3"
   pullPolicy: IfNotPresent
 
 service:

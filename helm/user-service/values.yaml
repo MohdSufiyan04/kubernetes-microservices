@@ -5,7 +5,7 @@ replicaCount: 2  # run 2 copies for high availability
 
 image:
   repository: mohdsufiyan04/user-service  # your Docker Hub image
-  tag: "2"
+  tag: "3"
   pullPolicy: IfNotPresent                 # only pull if not already on node
 
 service:
