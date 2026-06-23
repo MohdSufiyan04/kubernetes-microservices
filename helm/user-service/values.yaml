@@ -1,0 +1,36 @@
+# These are the values that get injected into the templates
+# Change these and the whole deployment changes
+
+replicaCount: 2  # run 2 copies for high availability
+
+image:
+  repository: mohdsufiyan04/user-service  # your Docker Hub image
+  tag: "1"                                 # image version
+  pullPolicy: IfNotPresent                 # only pull if not already on node
+
+service:
+  type: ClusterIP   # internal service — only accessible inside cluster
+  port: 3001        # port your app listens on
+
+resources:
+  requests:
+    memory: "64Mi"   # minimum memory needed
+    cpu: "50m"       # minimum CPU needed (50 millicores)
+  limits:
+    memory: "128Mi"  # maximum memory allowed
+    cpu: "100m"      # maximum CPU allowed
+
+# Health check — Kubernetes pings this to know app is alive
+livenessProbe:
+  httpGet:
+    path: /health
+    port: 3001
+  initialDelaySeconds: 10
+  periodSeconds: 10
+
+readinessProbe:
+  httpGet:
+    path: /health
+    port: 3001
+  initialDelaySeconds: 5
+  periodSeconds: 5

@@ -1,0 +1,38 @@
+replicaCount: 2
+
+image:
+  repository: mohdsufiyan04/gateway-service
+  tag: "1"
+  pullPolicy: IfNotPresent
+
+service:
+  type: LoadBalancer  # gateway is public facing — needs external IP
+  port: 3000
+
+# Gateway needs to know where other services are
+# These are Kubernetes internal DNS names
+env:
+  USER_SERVICE_URL: "http://user-service:3001"
+  PRODUCT_SERVICE_URL: "http://product-service:3002"
+
+resources:
+  requests:
+    memory: "64Mi"
+    cpu: "50m"
+  limits:
+    memory: "128Mi"
+    cpu: "100m"
+
+livenessProbe:
+  httpGet:
+    path: /health
+    port: 3000
+  initialDelaySeconds: 10
+  periodSeconds: 10
+
+readinessProbe:
+  httpGet:
+    path: /health
+    port: 3000
+  initialDelaySeconds: 5
+  periodSeconds: 5
